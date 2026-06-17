@@ -90,7 +90,8 @@
   document.body.appendChild(root);
 
   // --- 位置の復元 ---
-  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (e) {}
   if (saved) {
     root.style.left = saved.x + 'px';
     root.style.bottom = '';
@@ -121,11 +122,9 @@
   let isDragging = false;
   let dragOffsetX = 0;
   let dragOffsetY = 0;
-  let dragMoved = false;
 
   cat.addEventListener('mousedown', (e) => {
     isDragging = true;
-    dragMoved = false;
     const rect = root.getBoundingClientRect();
     // ふわふわ中の実際の位置を取得してfixedに反映
     root.style.top = rect.top + 'px';
@@ -141,7 +140,6 @@
 
   document.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
-    dragMoved = true;
     const x = e.clientX - dragOffsetX;
     const y = e.clientY - dragOffsetY;
     root.style.left = x + 'px';
@@ -158,6 +156,5 @@
     // 位置を保存
     const rect = root.getBoundingClientRect();
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ x: rect.left, y: rect.top }));
-    setTimeout(() => { isDragging = false; }, 10);
   });
 })();
