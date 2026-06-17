@@ -1,0 +1,98 @@
+#chata-root {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 90px;
+  z-index: 2147483647;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+  pointer-events: none;
+  animation: chata-float 3s ease-in-out infinite;
+}
+
+#chata-root.chata-dragging {
+  animation-play-state: paused;
+}
+
+@keyframes chata-float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+#chata-cat {
+  cursor: grab;
+  pointer-events: all;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+  transition: filter 0.15s ease, transform 0.15s ease;
+  transform-origin: bottom center;
+}
+
+#chata-cat:hover {
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.28)) brightness(1.05);
+  transform: scale(1.07);
+}
+
+#chata-cat:active {
+  cursor: grabbing;
+  transform: scale(1.04);
+}
+
+#chata-bubble {
+  pointer-events: none;
+  background: #fff8f2;
+  border: 2px solid #c89030;
+  border-radius: 16px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-family: 'Hiragino Sans', 'Meiryo', 'Noto Sans JP', sans-serif;
+  color: #333;
+  white-space: nowrap;
+  margin-bottom: 6px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+#chata-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 6px 0 6px;
+  border-style: solid;
+  border-color: #c89030 transparent transparent transparent;
+}
+
+#chata-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 7px 5px 0 5px;
+  border-style: solid;
+  border-color: #fff8f2 transparent transparent transparent;
+  z-index: 1;
+}
+
+@keyframes chata-pop-in {
+  0%   { opacity: 0; transform: scale(0.7) translateY(6px); }
+  60%  { transform: scale(1.05) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes chata-pop-out {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.8) translateY(4px); }
+}
+
+.chata-bubble-show {
+  animation: chata-pop-in 0.25s ease forwards;
+}
+
+.chata-bubble-hide {
+  animation: chata-pop-out 0.3s ease forwards;
+}

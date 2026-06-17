@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Chata - フローティング猫",
+  "version": "1.2",
+  "description": "どんなページにも猫がフローティング表示されます",
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
